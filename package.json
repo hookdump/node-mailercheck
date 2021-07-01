@@ -1,0 +1,14 @@
+{
+  "name": "mailercheck",
+  "version": "1.0.0",
+  "description": "Mailercheck NodeJS unofficial package",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "devjavi",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1"
+  }
+}
