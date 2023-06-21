@@ -1,6 +1,7 @@
 const axios = require("axios");
 
 let headers = {
+  "X-Version": "2022-10-01", // lock to a specific version of the API
   "X-Requested-With": "XMLHttpRequest",
   Content_type: "application/json",
 };
@@ -12,7 +13,7 @@ module.exports = class Mailercheck {
     headers.Authorization = `Bearer ${this.api_key}`;
   }
 
-  async checkEmail(email) {
+  async checkEmail({ email }) {
     const response = await axios.post(
       this.basePath + "/check/single",
       { email },
@@ -28,7 +29,7 @@ module.exports = class Mailercheck {
     }
   }
 
-  async createList(emails) {
+  async createList({ emails }) {
     const response = await axios.post(
       this.basePath + "/lists",
       { emails },
@@ -44,7 +45,7 @@ module.exports = class Mailercheck {
     }
   }
 
-  async verifyList(id) {
+  async verifyList({ id }) {
     const response = await axios.post(
       this.basePath + "/lists/" + id + "/verify",
       {},
@@ -65,9 +66,16 @@ module.exports = class Mailercheck {
   }
 
   async getListResults({ id, page, result }) {
+    let params = {};
+    if (page) {
+      params.page = page;
+    }
+    if (result) {
+      params.result = result;
+    }
     const response = await axios.get(
-      this.basePath + "/lists/" + listId + "/results",
-      { headers }
+      this.basePath + "/lists/" + id + "/results",
+      { headers, params }
     );
     const data = response.data;
     const statusCode = response.status;

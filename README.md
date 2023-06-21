@@ -27,28 +27,27 @@ Check a single email and get real-time response
 
 ```js
 const MailerCheck = require('../index')
+const client = new MailerCheck({ api_key: "api_key" });
 
-const mailercheck = new MailerCheck(
-    {
-        api_key: "api_key"
-    }
-)
+async function test() {
+  const singleCheck = await client.checkEmail("test@mailercheck.com");
 
-mailercheck.checkEmail("test@mailercheck.com")
-    .then((response) => {
-        console.log(response)
-    })
-    .catch(err => {
-        console.log(err)
-    })
+  const { id } = await client.createList(["first@foo.com", "second@foo.com"]);
+
+  const { status } = await client.verifyList(id);
+
+  const { emails, has_more_pages } = await client.getListResults({ id });
+
+  console.log('Has more pages?', has_more_pages);
+  console.log(emails);
 ```
 
-Response
+Single check response
 
 ```js
 { 
-    message: 'valid', 
-    status: 200 
+  message: 'valid', 
+  status: 200 
 }
 ```
 
