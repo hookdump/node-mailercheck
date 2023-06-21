@@ -87,7 +87,7 @@ module.exports = class Mailercheck {
   }
 
   async verifyList({ id }) {
-    const response = await axios.post(
+    const response = await axios.put(
       this.basePath + "/lists/" + id + "/verify",
       {},
       { headers }
