@@ -18,7 +18,7 @@ Mailercheck Unofficial Node.js Library
 ## Setup
 
 ```bash
-npm install mailercheck
+npm install node-mailercheck
 ```
 
 <a name="usage"></a>
