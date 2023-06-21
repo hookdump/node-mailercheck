@@ -1,6 +1,6 @@
 {
   "name": "node-mailercheck",
-  "version": "2.0.1",
+  "version": "2.0.3",
   "description": "Mailercheck NodeJS unofficial package",
   "main": "index.js",
   "scripts": {

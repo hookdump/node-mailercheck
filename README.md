@@ -1,8 +1,10 @@
 <a href="https://www.mailercheck.com"><img src="https://developers.mailercheck.com/logo.svg" width="200px"/></a>
 
+# node-mailercheck
+
 Mailercheck Unofficial Node.js Library
 
-Based on another unofficial Library: https://github.com/devjavi/mailercheck
+*Based on another unofficial Library: https://github.com/devjavi/mailercheck*
 
 # Table of Contents
 
@@ -26,15 +28,16 @@ npm install mailercheck
 Check a single email and get real-time response
 
 ```js
-const MailerCheck = require('../index')
+// import { default as MailerCheck } from 'node-mailercheck';
+const MailerCheck = require('node-mailercheck');
 const client = new MailerCheck({ api_key: "api_key" });
 
 async function test() {
-  const singleCheck = await client.checkEmail("test@mailercheck.com");
+  const singleCheck = await client.checkEmail({ email: "test@mailercheck.com" });
 
-  const { id } = await client.createList(["first@foo.com", "second@foo.com"]);
+  const { id } = await client.createList({ emails: ["first@foo.com", "second@foo.com"] });
 
-  const { status } = await client.verifyList(id);
+  const { status } = await client.verifyList({ id });
 
   const { emails, has_more_pages } = await client.getListResults({ id });
 

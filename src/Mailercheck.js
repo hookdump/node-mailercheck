@@ -6,6 +6,61 @@ let headers = {
   Content_type: "application/json",
 };
 
+const handleResponse = (response) => {
+  if (response.status === 200) {
+    return {
+      data: response.data,
+      statusCode: response.status,
+    };
+  } else if (response.status === 201) {
+    return {
+      data: response.data,
+      statusCode: response.status,
+      message: "Resource was created",
+    };
+  } else if (response.status === 202) {
+    return {
+      data: response.data,
+      statusCode: response.status,
+      message: "The request was accepted and further actions are taken in the background",
+    };
+  } else if (response.status === 204) {
+    return {
+      data: response.data,
+      statusCode: response.status,
+      message: "The request was accepted and there is no content to return",
+    };
+  } else if (response.status === 400) {
+    throw "Bad request";
+  } else if (response.status === 401) {
+    throw "Invalid API key";
+  } else if (response.status === 402) {
+    throw "Not enough credits";
+  } else if (response.status === 403) {
+    throw "Forbidden";
+  } else if (response.status === 404) {
+    throw "Not found";
+  } else if (response.status === 405) {
+    throw "Method not allowed";
+  } else if (response.status === 408) {
+    throw "Request timeout";
+  } else if (response.status === 409) {
+    throw "Verification already started";
+  } else if (response.status === 422) {
+    throw "Unprocessable entity";
+  } else if (response.status === 500) {
+    throw "Internal server error";
+  } else if (response.status === 502) {
+    throw "Bad gateway";
+  } else if (response.status === 503) {
+    throw "Service unavailable";
+  } else if (response.status === 504) {
+    throw "Gateway timeout";
+  } else {
+    throw "Oops something went wrong, please try again later or contact support here: https://www.mailercheck.com/support";
+  }
+}
+
 module.exports = class Mailercheck {
   constructor(config) {
     this.api_key = config.api_key;
@@ -19,14 +74,7 @@ module.exports = class Mailercheck {
       { email },
       { headers }
     );
-    const data = response.data;
-    const statusCode = response.status;
-
-    if (response.status !== 200) {
-      throw "Oops something went wrong, please try again later or contact support here: https://www.mailercheck.com/support";
-    } else {
-      return { message: data.status, status: statusCode };
-    }
+    return handleResponse(response);
   }
 
   async createList({ emails }) {
@@ -35,14 +83,7 @@ module.exports = class Mailercheck {
       { emails },
       { headers }
     );
-    const data = response.data;
-    const statusCode = response.status;
-
-    if (response.status !== 200) {
-      throw "Oops something went wrong, please try again later or contact support here: https://www.mailercheck.com/support";
-    } else {
-      return { message: data.status, status: statusCode };
-    }
+    return handleResponse(response);
   }
 
   async verifyList({ id }) {
@@ -51,39 +92,25 @@ module.exports = class Mailercheck {
       {},
       { headers }
     );
-    const data = response.data;
-    const statusCode = response.status;
+    return handleResponse(response);
+  }
 
-    if (response.status !== 200) {
-      if (response.status === 402) {
-        throw "Not enough credits. Credits required: " + data.creditsRequired;
-      } else {
-        throw data.error;
-      }
-    } else {
-      return { message: data.status, status: statusCode };
-    }
+  async getList({ id }) {
+    const response = await axios.get(
+      this.basePath + "/lists/" + id,
+      { headers }
+    );
+    return handleResponse(response);
   }
 
   async getListResults({ id, page, result }) {
     let params = {};
-    if (page) {
-      params.page = page;
-    }
-    if (result) {
-      params.result = result;
-    }
+    if (page) params.page = page;
+    if (result) params.result = result;
     const response = await axios.get(
       this.basePath + "/lists/" + id + "/results",
       { headers, params }
     );
-    const data = response.data;
-    const statusCode = response.status;
-
-    if (response.status !== 200) {
-      throw "Oops something went wrong, please try again later or contact support here: https://www.mailercheck.com/support";
-    } else {
-      return { message: data.status, status: statusCode };
-    }
+    return handleResponse(response);
   }
 };
