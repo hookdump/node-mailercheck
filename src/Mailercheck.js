@@ -64,7 +64,7 @@ const handleResponse = (response) => {
 module.exports = class Mailercheck {
   constructor(config) {
     this.api_key = config.api_key;
-    this.basePath = "https://app.mailercheck.com/api/v1";
+    this.basePath = "https://app.mailercheck.com/api";
     headers.Authorization = `Bearer ${this.api_key}`;
   }
 
@@ -77,10 +77,12 @@ module.exports = class Mailercheck {
     return handleResponse(response);
   }
 
-  async createList({ emails }) {
+  async createList({ name, emails }) {
+    if (!name) name = new Date().toISOString(); // if no name is provided, default to ISODate
+    const body = { name , emails };
     const response = await axios.post(
       this.basePath + "/lists",
-      { emails },
+      body,
       { headers }
     );
     return handleResponse(response);
