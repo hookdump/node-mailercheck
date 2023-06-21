@@ -1,6 +1,6 @@
 {
-  "name": "mailercheck",
-  "version": "1.0.1",
+  "name": "node-mailercheck",
+  "version": "2.0.0",
   "description": "Mailercheck NodeJS unofficial package",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/devjavi/mailercheck.git"
+    "url": "git+https://github.com/hookdump/node-mailercheck.git"
   }
 }

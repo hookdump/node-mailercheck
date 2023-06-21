@@ -1,8 +1,8 @@
 <a href="https://www.mailercheck.com"><img src="https://developers.mailercheck.com/logo.svg" width="200px"/></a>
 
-Mailercheck Unofficial Node.js SDK
+Mailercheck Unofficial Node.js Library
 
-[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE.md)
+Based on another unofficial Library: https://github.com/devjavi/mailercheck
 
 # Table of Contents
 
@@ -59,9 +59,3 @@ In case you find any bugs, submit an issue directly here in GitHub.
 If you have any troubles using our API or SDK free to contact our support here: [https://www.mailercheck.com/support](https://www.mailercheck.com/support)
 
 The official documentation is at [https://developers.mailercheck.com/](https://developers.mailercheck.com/)
-
-<a name="license"></a>
-
-# License
-
-[The MIT License (MIT)](LICENSE)
