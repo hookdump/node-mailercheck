@@ -115,4 +115,12 @@ module.exports = class Mailercheck {
     );
     return handleResponse(response);
   }
+
+  async getCreditBalance() {
+    const response = await axios.get(
+      this.basePath + "/credits",
+      { headers }
+    );
+    return handleResponse(response);
+  }
 };
